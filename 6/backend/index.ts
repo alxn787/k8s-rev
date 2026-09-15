@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "/app/secret/.env" });
 import express from "express";
 
 const app = express();

@@ -15,17 +15,14 @@ spec:
     spec:
       containers:
         - name: backend
-          image: alxn787/k8sdep:1
+          image: alxn787/k8sdep:3
           ports:
             - containerPort: 3000
-          env:
-            - name: PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: backend-cm
-                  key: PORT
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: backend-secret
-                  key: DATABASE_URL
+          volumeMounts:
+            - name: env-file
+              mountPath: /app/secret
+              readOnly: true
+      volumes:
+        - name: secret-volume
+          persistentVolumeClaim:
+            claimName: backend-pvc
